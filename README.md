@@ -138,3 +138,14 @@ Learn more about the power of Turborepo:
 ## Stack
 
  - next.js + tauri + capacitor
+
+ my-turborepo/
+├── apps/
+│   ├── web/          ← Next.js app (intacta)
+│   └── docs/         ← Docs (intacta)
+├── packages/
+│   ├── ui/           ← Componentes compartidos
+│   ├── lib/          ← Lógica compartida (Supabase, etc)
+│   ├── eslint-config/
+│   └── typescript-config/
+└── turbo.json        ← Sin referencias a mobile
