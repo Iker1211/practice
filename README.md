@@ -149,3 +149,64 @@ Learn more about the power of Turborepo:
 │   ├── eslint-config/
 │   └── typescript-config/
 └── turbo.json        ← Sin referencias a mobile
+
+## Comandos clave
+**Raíz**
+### Ejecutar dev en TODAS las apps
+npm run dev
+
+### Build todas las apps
+npm run build
+
+### Lint todas las apps
+npm run lint
+
+### Ejecutar solo en una app específica
+turbo run dev --filter=@myapp/web
+turbo run dev --filter=@myapp/mobile
+turbo run build --filter=@myapp/mobile
+
+### Limpiar caché de Turbo
+turbo run build --force
+
+### Reinstalar todo
+rm -rf node_modules apps/*/node_modules packages/*/node_modules
+npm install
+
+**móvil**
+### Development
+npm run dev              # Vite dev server en localhost:5173
+
+### Build
+npm run build            # Compila y sincroniza con Capacitor automáticamente
+
+### Capacitor
+npm run sync             # Sincroniza dist/ → android/ios
+npm run android          # Abre Android Studio
+npm run ios              # Abre Xcode (solo Mac)
+
+### Si haces cambios en el código
+npm run build            # Compila + sync automático
+### Luego en Android Studio: Run ▶️
+
+### Capacitor manual
+npx cap add android      # Agrega plataforma (solo 1 vez)
+npx cap sync             # Sincroniza assets
+npx cap open android     # Abre Android Studio4
+
+**útiles**
+
+### Ver qué apps tiene el workspace
+npm run build --dry-run
+
+### Ejecutar comando en todos los workspaces
+npm run <comando> --workspaces
+
+### Agregar dependencia a mobile
+cd apps/mobile
+npm install <paquete>
+cd ../..
+npm install  # Sincroniza lock
+
+### Ver estructura del turborepo
+tree -L 2 -I node_modules

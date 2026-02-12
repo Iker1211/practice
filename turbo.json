@@ -8,9 +8,11 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"]
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "@myapp/mobile#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "android/app/build/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
