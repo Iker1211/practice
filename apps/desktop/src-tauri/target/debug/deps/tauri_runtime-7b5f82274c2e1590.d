@@ -1,0 +1,11 @@
+/home/velez/repos/my-turborepo/apps/desktop/src-tauri/target/debug/deps/tauri_runtime-7b5f82274c2e1590.d: /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/lib.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/dpi.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/monitor.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/webview.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/window.rs
+
+/home/velez/repos/my-turborepo/apps/desktop/src-tauri/target/debug/deps/libtauri_runtime-7b5f82274c2e1590.rlib: /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/lib.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/dpi.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/monitor.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/webview.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/window.rs
+
+/home/velez/repos/my-turborepo/apps/desktop/src-tauri/target/debug/deps/libtauri_runtime-7b5f82274c2e1590.rmeta: /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/lib.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/dpi.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/monitor.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/webview.rs /home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/window.rs
+
+/home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/lib.rs:
+/home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/dpi.rs:
+/home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/monitor.rs:
+/home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/webview.rs:
+/home/velez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-runtime-2.10.0/src/window.rs:
