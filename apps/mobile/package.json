@@ -8,6 +8,7 @@
     "build": "vite build && cap sync",
     "preview": "vite preview",
     "android": "powershell.exe -Command \"Start-Process 'C:\\\\Program Files\\\\Android\\\\Android Studio\\\\bin\\\\studio64.exe' -ArgumentList '\\\\\\\\wsl.localhost\\\\Ubuntu\\\\home\\\\velez\\\\repos\\\\my-turborepo\\\\apps\\\\mobile\\\\android'\"",
+    "ios": "cap open ios",
     "sync": "cap sync",
     "lint": "eslint ."
   },
@@ -15,6 +16,7 @@
     "@capacitor/android": "^8.1.0",
     "@capacitor/cli": "^8.1.0",
     "@capacitor/core": "^8.1.0",
+    "@capacitor/ios": "^8.1.0",
     "@myapp/lib": "*",
     "@myapp/ui": "*",
     "react": "^19.2.0",

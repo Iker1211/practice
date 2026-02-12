@@ -12,7 +12,7 @@
     },
     "@myapp/mobile#build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "android/app/build/**"]
+      "outputs": ["dist/**", "android/app/build/**", "ios/App/build/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
