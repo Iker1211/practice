@@ -2,8 +2,15 @@
   "name": "@myapp/lib",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./db/adapter": "./src/db/adapter.ts",
+    "./db/schema": "./src/db/schema.ts",
+    "./db/types": "./src/db/types.ts",
+    "./db/repository": "./src/db/repository.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.3",
