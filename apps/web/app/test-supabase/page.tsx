@@ -11,14 +11,24 @@ export default function TestSupabasePage() {
     const testConnection = async () => {
       try {
         // Test simple: verificar la sesión (no requiere tablas)
-        const { data, error } = await supabase.auth.getSession()
+        const { error: sessionError } = await supabase.auth.getSession()
         
-        if (error) {
+        if (sessionError) {
           setStatus('error')
-          setError(error.message)
+          setError(sessionError.message)
         } else {
-          // Si llegamos aquí, Supabase está conectado correctamente
-          setStatus('connected')
+          // Intentamos leer la tabla 'ideas'
+          const { data: ideasData, error: ideasError } = await supabase
+            .from('ideas')
+            .select('*')
+
+          if (ideasError) {
+            setStatus('error')
+            setError(`Error en tabla: ${ideasError.message}`)
+          } else {
+            void ideasData
+            setStatus('connected')
+          }
         }
       } catch (err) {
         setStatus('error')

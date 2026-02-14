@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@/db/client": ["./db/client.ts"],
+      "@/db/*": ["./src/db/*"],
       "@myapp/*": ["../../packages/*/src"],
     }
   },

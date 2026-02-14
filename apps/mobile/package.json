@@ -10,7 +10,8 @@
     "android": "powershell.exe -Command \"Start-Process 'C:\\\\Program Files\\\\Android\\\\Android Studio\\\\bin\\\\studio64.exe' -ArgumentList '\\\\\\\\wsl.localhost\\\\Ubuntu\\\\home\\\\velez\\\\repos\\\\my-turborepo\\\\apps\\\\mobile\\\\android'\"",
     "ios": "cap open ios",
     "sync": "cap sync",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@capacitor/android": "^8.1.0",
