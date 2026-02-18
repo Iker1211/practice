@@ -1,6 +1,6 @@
 "use client"
 
-import { useIdeas } from "./useIdeas"
+import { useIdeas } from "./useIdeas" //??
 import Image from "next/image"
 
 export default function Home() {

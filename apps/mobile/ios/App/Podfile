@@ -1,0 +1,1 @@
+pod 'CapacitorCommunitySqlite', :path => '../../node_modules/@capacitor-community/sqlite'
