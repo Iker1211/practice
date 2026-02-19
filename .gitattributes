@@ -1,0 +1,16 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Vendored dependencies - exclude from language statistics
+apps/web/public/sql-wasm.js linguist-vendored
+apps/web/public/sql-wasm.wasm linguist-vendored
+apps/web/public/worker.js linguist-vendored
+apps/mobile/android/gradlew linguist-vendored
+apps/mobile/android/gradlew.bat linguist-vendored
+apps/mobile/android/gradle/wrapper/gradle-wrapper.jar linguist-vendored
+
+# Generated files - exclude from language statistics
+apps/desktop/src-tauri/Cargo.lock linguist-generated
+apps/desktop/src-tauri/gen/** linguist-generated
+apps/mobile/ios/App/App.xcodeproj/project.pbxproj linguist-generated
+package-lock.json linguist-generated
