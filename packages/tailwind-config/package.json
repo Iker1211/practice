@@ -1,0 +1,13 @@
+{
+  "name": "@repo/tailwind-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./native": "./native.ts",
+    ".": "./web.ts"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
