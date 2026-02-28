@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
-    "sql.js": "^1.14.0"
+    "sql.js": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

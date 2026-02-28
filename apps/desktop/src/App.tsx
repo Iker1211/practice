@@ -1,38 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  Button,
+} from "@myapp/ui";
+import { useIdeas } from "./useIdeas";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { ideas, loading, create, remove } = useIdeas();
+
+  const handleCreateIdea = async () => {
+    await create("Nueva idea " + Date.now());
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
+      <div className="max-w-4xl w-full">
+        <h1 className="text-4xl font-bold text-center mb-8 text-foreground">
+          Ideas App - Supabase Demo
+        </h1>
+
+        <Button onClick={handleCreateIdea} className="mb-4">
+          Crear Idea
+        </Button>
+
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <ul className="space-y-2">
+            {ideas.map((idea) => (
+              <li key={idea.id} className="flex items-center gap-2">
+                <span>{idea.title}</span>
+                <Button
+                  onClick={() => remove(idea.id)}
+                  variant="destructive"
+                  size="sm"
+                >
+                  Eliminar
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <p>
-          Hola estoy dopado
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,55 +1,60 @@
-import type { DatabaseAdapter } from "./adapter"
+import { supabase } from './client'
+import type { Tables } from './types'
 
-export class IdeaRepository {
-  #db: DatabaseAdapter
-  constructor(db: DatabaseAdapter) {
-    this.#db = db
-  }
-
-  async create(title: string) {
+export const ideaRepository = {
+  async create(title: string): Promise<string> {
     const id = crypto.randomUUID()
     const now = new Date().toISOString()
 
-    await this.#db.execute(
-      `INSERT INTO ideas (id, title, created_at, updated_at, version)
-       VALUES (?, ?, ?, ?, 1)`,
-      [id, title, now, now],
-    )
+    const { error } = await supabase.from('ideas').insert({
+      id,
+      title,
+      created_at: now,
+      updated_at: now,
+    })
+
+    if (error) throw error
 
     return id
-  }
+  },
 
-  async getAll() {
-    return this.#db.execute(
-      `SELECT * FROM ideas
-       WHERE deleted_at IS NULL
-       ORDER BY created_at DESC`,
-    )
-  }
+  async getAll(): Promise<Tables<'ideas'>[]> {
+    const { data, error } = await supabase
+      .from('ideas')
+      .select('*')
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false })
 
-  async update(id: string, title: string) {
+    if (error) throw error
+
+    return data ?? []
+  },
+
+  async update(id: string, title: string): Promise<void> {
     const now = new Date().toISOString()
 
-    await this.#db.execute(
-      `UPDATE ideas
-       SET title = ?,
-           updated_at = ?,
-           version = version + 1
-       WHERE id = ?
-       AND deleted_at IS NULL`,
-      [title, now, id],
-    )
-  }
+    const { error } = await supabase
+      .from('ideas')
+      .update({
+        title,
+        updated_at: now,
+      })
+      .eq('id', id)
+      .is('deleted_at', null)
 
-  async delete(id: string) {
+    if (error) throw error
+  },
+
+  async delete(id: string): Promise<void> {
     const now = new Date().toISOString()
 
-    await this.#db.execute(
-      `UPDATE ideas
-       SET deleted_at = ?,
-           version = version + 1
-       WHERE id = ?`,
-      [now, id],
-    )
-  }
+    const { error } = await supabase
+      .from('ideas')
+      .update({
+        deleted_at: now,
+      })
+      .eq('id', id)
+
+    if (error) throw error
+  },
 }

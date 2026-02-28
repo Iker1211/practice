@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
-      "@repo/ui": path.resolve(__dirname, "../../packages/ui/src"),
-      "@repo/tailwind-config": path.resolve(__dirname, "../../packages/tailwind-config"),
+      "@myapp/ui": path.resolve(__dirname, "../../packages/ui/src"),
+      "@myapp/tailwind-config": path.resolve(__dirname, "../../packages/tailwind-config"),
     },
   },
 })

@@ -1,6 +1,12 @@
-export interface DatabaseAdapter {
-  execute<T = any>(
-    query: string,
-    params?: any[]
-  ): Promise<T>
+import type { Database } from './types'
+
+export type Adapter = {
+  from(table: string): any
+  select(query: string): any
+}
+
+export const adapter = {
+  getDatabase(): Database {
+    return {} as Database
+  },
 }

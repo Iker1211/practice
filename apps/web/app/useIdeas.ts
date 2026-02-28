@@ -1,1 +1,1 @@
-export { useIdeas } from "../src/db/useDatabase"
+export { useIdeas } from "@myapp/lib"

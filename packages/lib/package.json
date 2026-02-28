@@ -7,10 +7,19 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./db/adapter": "./src/db/adapter.ts",
-    "./db/schema": "./src/db/schema.ts",
+    "./db": "./src/db/index.ts",
     "./db/types": "./src/db/types.ts",
-    "./db/repository": "./src/db/repository.ts"
+    "./db/repository": "./src/db/repository.ts",
+    "./db/idea-repository": "./src/db/idea-repository.ts",
+    "./db/client": "./src/db/client.ts",
+    "./db/adapter": "./src/db/local-db-adapter.ts",
+    "./db/migrations": "./src/db/migrations.ts",
+    "./db/schema-generator": "./src/db/schema-generator.ts",
+    "./db/sync-engine": "./src/db/sync-engine.ts",
+    "./db/dual-manager": "./src/db/dual-database-manager.ts",
+    "./db/initialize": "./src/db/initialize-database.ts",
+    "./db/capacitor": "./src/db/capacitor-sqlite-adapter.ts",
+    "./db/use-ideas": "./src/db/use-ideas.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.3",
