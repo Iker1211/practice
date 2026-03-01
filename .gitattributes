@@ -1,0 +1,16 @@
+# Auto normalize line endings for all text files
+* text=auto
+
+# Specific settings per file type
+*.sh eol=lf
+*.json eol=lf
+*.js eol=lf
+*.ts eol=lf
+*.tsx eol=lf
+*.md eol=lf
+
+# Binaries
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
