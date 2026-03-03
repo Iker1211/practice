@@ -6,8 +6,8 @@
 export interface Migration {
   version: number
   description: string
-  up: (params: { runSQL: (sql: string, params?: any[]) => Promise<void> }) => Promise<void>
-  down?: (params: { runSQL: (sql: string, params?: any[]) => Promise<void> }) => Promise<void>
+  up: (params: { runSQL: (sql: string, params?: any[]) => Promise<any[]> }) => Promise<void>
+  down?: (params: { runSQL: (sql: string, params?: any[]) => Promise<any[]> }) => Promise<void>
 }
 
 // Tabla de metadatos para rastrear versión actual del schema

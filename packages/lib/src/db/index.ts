@@ -9,7 +9,7 @@ export type { Database } from './types'
 export { generateFullSchemaSQL, generateCreateTableSQL, generateCreateIndexesSQL } from './schema-generator'
 export type { SchemaColumn, SchemaTable } from './schema-generator'
 export { ALL_MIGRATIONS, MIGRATIONS_TABLE_SQL, getCurrentSchemaVersion, applyMigrations } from './migrations'
-export type { Migration, MigrationStatus } from './migrations'
+export type { Migration } from './migrations'
 
 // Adapters
 export { LocalDatabaseAdapterError } from './local-db-adapter'
