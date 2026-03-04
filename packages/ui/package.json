@@ -1,11 +1,13 @@
 {
   "name": "@myapp/ui",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "exports": {
     ".": "./src/index.ts"
   },
   "scripts": {
+    "dev": "vite --config vite.config.dev.ts",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
