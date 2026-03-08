@@ -39,8 +39,25 @@ export {
   getDatabaseManager,
   destroyDatabase,
   getDatabaseStatus,
+  reinitializeDatabaseForUser,
 } from './initialize-database'
 export type { InitializeDatabaseOptions } from './initialize-database'
+
+// Data Safety: Backups
+export { BackupEngine, createBackupEngine } from './backup-engine'
+export type { BackupMetadata, BackupData } from './backup-engine'
+
+// Data Safety: Audit Log
+export { AuditLogEngine, createAuditLogEngine } from './audit-log'
+export type { AuditLogEntry, AuditOperation } from './audit-log'
+
+// Data Safety: Recovery
+export { RecoveryEngine, createRecoveryEngine } from './recovery-engine'
+export type { RecoveryResult } from './recovery-engine'
+
+// Data Safety: Manager
+export { DataSafetyManager, createDataSafetyManager } from './data-safety-manager'
+export type { DataSafetyStatus } from './data-safety-manager'
 
 // Server Actions (Next.js)
 export {

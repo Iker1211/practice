@@ -31,6 +31,7 @@ export const SCHEMA_DEFINITION: Record<string, SchemaTable> = {
     columns: [
       { name: 'id', type: 'TEXT', primaryKey: true },
       { name: 'title', type: 'TEXT', notNull: true },
+      { name: 'user_id', type: 'TEXT', notNull: true, default: "'local-anonymous'" },
       { name: 'created_at', type: 'TEXT', notNull: true },
       { name: 'updated_at', type: 'TEXT', notNull: true },
       { name: 'deleted_at', type: 'TEXT' },
@@ -41,10 +42,12 @@ export const SCHEMA_DEFINITION: Record<string, SchemaTable> = {
       { name: '_last_synced_at', type: 'TEXT' },
     ],
     indexes: [
+      { name: 'idx_ideas_user_id', columns: ['user_id'] },
       { name: 'idx_ideas_deleted_at', columns: ['deleted_at'] },
       { name: 'idx_ideas_created_at', columns: ['created_at'] },
       { name: 'idx_ideas_updated_at', columns: ['updated_at'] },
       { name: 'idx_ideas_sync_status', columns: ['_sync_status'] },
+      { name: 'idx_ideas_user_id_deleted', columns: ['user_id', 'deleted_at'] },
     ],
   },
 }

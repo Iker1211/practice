@@ -5,6 +5,7 @@ export type Database = {
         Row: {
           id: string
           title: string
+          user_id: string
           created_at: string
           updated_at: string
           deleted_at: string | null
@@ -13,6 +14,7 @@ export type Database = {
         Insert: {
           id?: string
           title: string
+          user_id?: string
           created_at?: string
           updated_at?: string
           deleted_at?: string | null
@@ -21,6 +23,7 @@ export type Database = {
         Update: {
           id?: string
           title?: string
+          user_id?: string
           created_at?: string
           updated_at?: string
           deleted_at?: string | null

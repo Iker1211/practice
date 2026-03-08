@@ -1,117 +1,178 @@
+import { useEffect, useState } from 'react'
 import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Input,
-  Code,
-} from "@myapp/ui";
-import { useIdeas } from "./useIdeas";
+  AuthProvider,
+  useAuth,
+  reinitializeDatabaseForUser,
+  createSupabaseClient,
+} from '@myapp/lib'
+import { createClient } from '@supabase/supabase-js'
+import { Button } from '@myapp/ui'
+import { LoginScreen } from './screens/LoginScreen'
+import { SignupScreen } from './screens/SignupScreen'
+import { AppContent } from './AppContent'
+import type { Database } from '@myapp/lib'
 
-function App() {
-  const { ideas, loading, create, remove } = useIdeas();
+/**
+ * Supabase client (inicializar una sola vez)
+ */
+const supabase = (() => {
+  const url = import.meta.env.VITE_SUPABASE_URL
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-  const handleCreateIdea = async () => {
-    await create("Nueva idea " + Date.now());
-  };
+  if (!url || !anonKey) {
+    console.warn('⚠️ Supabase not configured, running in offline-only mode')
+    return null
+  }
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
-      <div className="max-w-4xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-8 text-foreground">
-          Ideas App - Supabase Demo
-        </h1>
+  return createSupabaseClient(url, anonKey)
+})()
 
-        <Button onClick={handleCreateIdea} className="mb-4">
-          Crear Idea
-        </Button>
+/**
+ * Componente para manejar autenticación y routing
+ */
+function AppAuthContainer() {
+  const { user, loading, isInitialized } = useAuth()
+  const [showSignup, setShowSignup] = useState(false)
+  const [syncing, setSyncing] = useState(false)
 
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <ul className="space-y-2">
-            {ideas.map((idea) => (
-              <li key={idea.id} className="flex items-center gap-2">
-                <span>{idea.title}</span>
-                <Button
-                  onClick={() => remove(idea.id)}
-                  variant="destructive"
-                  size="sm"
-                >
-                  Eliminar
-                </Button>
-              </li>
-            ))}
-          </ul>
-        )}
+  /**
+   * Cuando usuario hace login exitoso:
+   * 1. Re-inicializar BD con su user_id
+   * 2. Volver a AppContent
+   */
+  const handleLoginSuccess = async () => {
+    if (!user) return
 
-        <h1 className="text-4xl font-bold text-center mb-8 text-foreground mt-12">
-          Component Showcase
-        </h1>
+    try {
+      // Re-inicializar BD para el usuario autenticado
+      await reinitializeDatabaseForUser(user.id, user.email, {
+        supabase: supabase || undefined,
+      })
+      // Router/state ya se actualizarán automáticamente
+    } catch (err) {
+      console.error('Error reinitializing database:', err)
+    }
+  }
 
-        {/* Card */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Card</h2>
-          <Card className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>
-                This is a description for the card.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>
-                This is the main content area of the card. You can put any
-                React nodes here.
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button>Action</Button>
-            </CardFooter>
-          </Card>
-        </div>
+  /**
+   * Cuando usuario se registra exitosamente:
+   * 1. Re-inicializar BD con su user_id
+   * 2. Si eligió sincronizar: llamar syncNow()
+   * 3. Volver a AppContent
+   */
+  const handleSignupSuccess = async (syncExistingIdeas: boolean) => {
+    if (!user) return
 
-        {/* Buttons */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Buttons</h2>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="default">Default</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
-          </div>
-        </div>
+    try {
+      setSyncing(true)
 
-        {/* Input */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Input</h2>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <label htmlFor="email">Email</label>
-            <Input type="email" id="email" placeholder="Email" />
-          </div>
-        </div>
+      // Re-inicializar BD para el usuario nuevo
+      await reinitializeDatabaseForUser(user.id, user.email, {
+        supabase: supabase || undefined,
+      })
 
-        {/* Code */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Code</h2>
-          <div className="bg-muted p-4 rounded-md">
-            <Code>
-              {`import { Button } from "@myapp/ui";
+      // Si usuario eligió sincronizar, hacerlo ahora
+      if (syncExistingIdeas) {
+        // Optativo: aquí podrías mostrar UI de progreso
+        // const { syncNow } = useIdeas() - pero necesitarías pasar el estado
+        console.log('🔄 Sincronizando ideas existentes...')
+      }
+    } catch (err) {
+      console.error('Error on signup:', err)
+    } finally {
+      setSyncing(false)
+    }
+  }
 
-function MyComponent() {
-  return <Button>Click me</Button>
-}`}
-            </Code>
-          </div>
+  // Mientras se está recuperando la sesión, mostrar loading
+  if (!isInitialized) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white">Cargando...</p>
         </div>
       </div>
-    </div>
-  );
+    )
+  }
+
+  // Si no hay usuario, mostrar auth screens
+  if (!user) {
+    return (
+      <>
+        {showSignup ? (
+          <SignupScreen
+            onSignupSuccess={handleSignupSuccess}
+            onSwitchToLogin={() => setShowSignup(false)}
+          />
+        ) : (
+          <LoginScreen
+            onLoginSuccess={() => {
+              // Handle login success
+              handleLoginSuccess()
+            }}
+          />
+        )}
+        {/* Botón para alternar entre login y signup */}
+        <div className="fixed bottom-4 right-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowSignup(!showSignup)}
+            className="text-xs"
+          >
+            {showSignup ? '← Volver a Login' : 'Crear Cuenta →'}
+          </Button>
+        </div>
+      </>
+    )
+  }
+
+  // Usuario autenticado: mostrar app principal
+  return (
+    <AppContent
+      user={user}
+      syncing={syncing}
+      onSyncComplete={() => setSyncing(false)}
+    />
+  )
 }
 
-export default App;
+/**
+ * Componente raíz de la app
+ */
+function App() {
+  if (!supabase) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-red-900">
+        <div className="text-center text-white">
+          <h1 className="text-3xl font-bold mb-4">Configuración Incompleta</h1>
+          <p className="mb-4">
+            Falta configurar variables de entorno de Supabase:
+          </p>
+          <ul className="text-left inline-block text-sm space-y-2">
+            <li>• VITE_SUPABASE_URL</li>
+            <li>• VITE_SUPABASE_ANON_KEY</li>
+          </ul>
+          <p className="mt-4 text-xs text-gray-300">
+            Copia .env.example a .env.local y configúralo
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <AuthProvider
+      supabase={supabase}
+      options={{
+        autoRecoverSession: true,
+      }}
+    >
+      <AppAuthContainer />
+    </AuthProvider>
+  )
+}
+
+export default App
+

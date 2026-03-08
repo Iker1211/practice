@@ -1,5 +1,8 @@
 export * from "./supabase"
 
+// Exportar toda la capa de autenticación
+export * from "./auth"
+
 // Exportar toda la capa de base de datos
 export * from "./db"
 

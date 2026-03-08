@@ -1,0 +1,128 @@
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#         🚀 PASO 5.1: VERIFICAR RLS POLICIES - LISTO PARA EJECUTAR
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+## 📍 UBICACIÓN ACTUAL EN EL MAPA
+
+┌────────────────────────────────────────────────────────────────┐
+│  ✅ Completado:                                                │
+│     • PASO 1-3: Auth Core + Data Safety (13 step)            │
+│     • PASO 5: RLS Policies (SQL + Docs + Tests creados)      │
+│                                                                │
+│  🟡 Ahora:                                                     │
+│     • PASO 5.1: Verificar RLS en Supabase [AQUÍ ESTAMOS]    │
+│                                                                │
+│  ⏳ Próximo:                                                   │
+│     • PASO 5.2: RLS + Sync Engine Integration                │
+│     • PASO 6: Índices para 10k+ usuarios                     │
+│     • PASO 7: Deploy a Producción                            │
+└────────────────────────────────────────────────────────────────┘
+
+
+## 🎯 UNA SOLA LÍNEA
+
+    npm run paso:5-1
+
+
+## ⬇️ LO QUE PASARÁ
+
+    1. Script te guía a ejecutar SQL en Supabase (~2 min manual)
+    2. Script verifica automáticamente que RLS está activo (~1 min)
+    3. Script corre 5 tests de seguridad (~1 min)
+    4. Script muestra resultados
+    5. Te indica próximo paso
+
+    TOTAL: 5 minutos
+
+
+## 📊 ARCHIVOS CREADOS PARA PASO 5.1
+
+Scripts (Ejecutables):
+  ✅ scripts/paso-5-1.sh           - Main automatizado
+  ✅ scripts/verify-rls.ts         - Verificación individual
+  ✅ scripts/test-rls.ts           - 5 tests de seguridad
+
+Documentación:
+  ✅ PASO_5_1_QUICK_START.md       - Comienza aquí (5 min read)
+  ✅ PASO_5_1_INSTRUCTIONS.md      - Detallado (15 min read)
+  ✅ PASO_5_1_FLOWCHART.md         - Flowchart visual (10 min read)
+  ✅ PASO_5_1_SETUP_COMPLETE.md    - Overview completo (10 min read)
+  ✅ PASO_5_1_STATUS.md            - Este status
+
+Total Entregables: 8 archivos + 4 nuevos comandos npm
+
+
+## 🎮 OPCIONES
+
+Opción 1 - RECOMENDADA (Automatizada):
+  $ npm run paso:5-1
+
+Opción 2 - Leer primero:
+  $ cat PASO_5_1_QUICK_START.md
+
+Opción 3 - Menú interactivo:
+  $ bash scripts/paso-5-1-menu.sh
+
+Opción 4 - Manual (15 min):
+  Seguir PASO_5_1_INSTRUCTIONS.md paso-a-paso
+
+
+## ✅ CONFIRMACIÓN
+
+Podrás saber que PASO 5.1 está completo cuando veas:
+
+  ✅ RLS está ACTIVO
+  ✅ 5/5 tests pasaron
+  ✅ Mensaje: "¡TODOS LOS TESTS PASARON!"
+
+
+## 🔐 QUÉ SE VERIFICA
+
+  ✅ RLS está habilitado en tabla "ideas"
+  ✅ 5 políticas existen (SELECT/INSERT/UPDATE/DELETE)
+  ✅ Índices de performance están creados
+  ✅ SELECT devuelve solo datos del usuario
+  ✅ INSERT rechaza datos de otros usuarios
+  ✅ UPDATE y DELETE están protegidos
+  ✅ Audit log tiene RLS
+
+
+## 📞 AYUDA
+
+Tengo 5 documentos con instrucciones detalladas:
+
+  1. Necesito empezar YA
+     → cat PASO_5_1_QUICK_START.md
+
+  2. Necesito entender TODO
+     → cat PASO_5_1_INSTRUCTIONS.md
+
+  3. Prefiero ver flowchart
+     → cat PASO_5_1_FLOWCHART.md
+
+  4. Necesito referencia rápida
+     → cat PASO_5_1_QUICK_REFERENCE.md
+
+  5. Quiero ver el código
+     → cat supabase/rls-policies.sql
+
+
+## ⏭️ DESPUÉS
+
+Cuando `npm run paso:5-1` termine exitosamente:
+
+  Mensaje indicará: "🎯 Próximo paso: PASO 5.2"
+
+  El que es: "Integrar RLS con Sync Engine"
+
+
+## ═══════════════════════════════════════════════════════════════════════════════
+#
+#                         🚀 COMIENZA AHORA:
+#
+#                            npm run paso:5-1
+#
+# ═══════════════════════════════════════════════════════════════════════════════

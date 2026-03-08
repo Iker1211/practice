@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.myapp.mobile',
-  appName: 'MyApp Mobile',
+  appName: 'ID',
   webDir: 'dist',
 
   // iOS específico (opcional)

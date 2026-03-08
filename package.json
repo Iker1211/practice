@@ -6,7 +6,12 @@
     "dev": "turbo run dev --filter=@myapp/web --filter=@myapp/mobile --filter=@myapp/desktop",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run type-check"
+    "check-types": "turbo run type-check",
+    "setup:supabase": "bash scripts/setup-supabase.sh",
+    "verify-rls": "tsx scripts/verify-rls.ts",
+    "test:rls": "tsx scripts/test-rls.ts",
+    "paso:5-1": "bash scripts/paso-5-1.sh",
+    "paso:5-1-multiuser": "echo 'Manual test: Open 2 incognito browsers, login as different users, verify isolation'"
   },
   "devDependencies": {
     "prettier": "^3.7.4",

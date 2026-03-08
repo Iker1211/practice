@@ -137,4 +137,67 @@ export const ALL_MIGRATIONS: Migration[] = [
       await runSQL('CREATE INDEX idx_sync_queue_created_at ON _sync_queue(created_at)')
     },
   },
+  {
+    version: 4,
+    description: 'Add user_id column for multi-user support',
+    up: async ({ runSQL }) => {
+      // Agregar user_id a ideas (para aislamiento de usuario)
+      await runSQL(`
+        ALTER TABLE ideas ADD COLUMN user_id TEXT NOT NULL DEFAULT 'local-anonymous'
+      `)
+      await runSQL('CREATE INDEX idx_ideas_user_id ON ideas(user_id)')
+      await runSQL('CREATE INDEX idx_ideas_user_id_deleted ON ideas(user_id, deleted_at)')
+
+      // Agregar user_id a _sync_queue (para rastrear qué usuario generó cada cambio)
+      await runSQL(`
+        ALTER TABLE _sync_queue ADD COLUMN user_id TEXT NOT NULL DEFAULT 'local-anonymous'
+      `)
+      await runSQL('CREATE INDEX idx_sync_queue_user_id ON _sync_queue(user_id)')
+    },
+  },
+  {
+    version: 5,
+    description: 'Add backup table for automatic backups',
+    up: async ({ runSQL }) => {
+      await runSQL(`
+        CREATE TABLE _backups (
+          id TEXT PRIMARY KEY,
+          timestamp TEXT NOT NULL,
+          user_ids TEXT NOT NULL COMMENT 'JSON array de user_ids',
+          idea_count INTEGER NOT NULL,
+          size INTEGER NOT NULL COMMENT 'Tamaño en bytes del JSON',
+          checksum TEXT NOT NULL COMMENT 'SHA-256 para validar integridad',
+          data TEXT NOT NULL COMMENT 'Snapshot JSON serializado',
+          version INTEGER NOT NULL DEFAULT 1,
+          created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+      `)
+      await runSQL('CREATE INDEX idx_backups_timestamp ON _backups(timestamp)')
+      await runSQL('CREATE INDEX idx_backups_created_at ON _backups(created_at)')
+    },
+  },
+  {
+    version: 6,
+    description: 'Add audit log table for tracking all changes',
+    up: async ({ runSQL }) => {
+      await runSQL(`
+        CREATE TABLE _audit_log (
+          id TEXT PRIMARY KEY,
+          timestamp TEXT NOT NULL,
+          user_id TEXT NOT NULL,
+          table_name TEXT NOT NULL,
+          operation TEXT NOT NULL CHECK(operation IN ('INSERT', 'UPDATE', 'DELETE', 'RESTORE')),
+          record_id TEXT NOT NULL,
+          old_data TEXT COMMENT 'JSON con datos anteriores',
+          new_data TEXT COMMENT 'JSON con datos nuevos',
+          changes_summary TEXT COMMENT 'Resumen amigable de cambios',
+          created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+      `)
+      await runSQL('CREATE INDEX idx_audit_log_timestamp ON _audit_log(timestamp)')
+      await runSQL('CREATE INDEX idx_audit_log_user_id ON _audit_log(user_id)')
+      await runSQL('CREATE INDEX idx_audit_log_table_operation ON _audit_log(table_name, operation)')
+      await runSQL('CREATE INDEX idx_audit_log_record_id ON _audit_log(record_id)')
+    },
+  },
 ]
