@@ -24,6 +24,28 @@ allprojects {
     }
 }
 
+// OVERRIDE Java version for ALL subprojects (including capacitor-android)
+subprojects {
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'javaPreCompileDebug' || task.name == 'compileDebugJavaWithJavac') {
+            task.doFirst {
+                println("Overriding Java version to 17 for ${project.name}")
+            }
+        }
+    }
+    
+    afterEvaluate {
+        if (plugins.hasPlugin('com.android.library') || plugins.hasPlugin('com.android.application')) {
+            android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+            }
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

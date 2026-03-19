@@ -6,7 +6,6 @@ import {
   createSupabaseClient,
 } from '@myapp/lib'
 import { createClient } from '@supabase/supabase-js'
-import { Button } from '@myapp/ui'
 import { LoginScreen } from './screens/LoginScreen'
 import { SignupScreen } from './screens/SignupScreen'
 import { AppContent } from './AppContent'
@@ -111,19 +110,9 @@ function AppAuthContainer() {
               // Handle login success
               handleLoginSuccess()
             }}
+            onSwitchToSignup={() => setShowSignup(true)}
           />
         )}
-        {/* Botón para alternar entre login y signup */}
-        <div className="fixed bottom-4 right-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowSignup(!showSignup)}
-            className="text-xs"
-          >
-            {showSignup ? '← Volver a Login' : 'Crear Cuenta →'}
-          </Button>
-        </div>
       </>
     )
   }
