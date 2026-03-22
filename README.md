@@ -210,3 +210,30 @@ npm install  # Sincroniza lock
 
 ### Ver estructura del turborepo
 tree -L 2 -I node_modules
+
+
+---
+
+
+- las asociaciones tienen nombres
+    propuesto por el ejecutor en el menú de subida de comprobantes
+
+- las asociaciones tienen fecha de caducidad
+- las asociaciones tienen categorías
+- las asociaciones tienen un monto estipulado por parte del depositario
+
+---
+
+- las propuestas se convierten en asociaciones una vez se haya aceptado por parte del ejecutor
+    las asociaciones se convierten en conexiones una vez se haya satisfecho al depositario
+
+- las asociaciones se finiquitan una vez se haya pasado la fecha de caducidad o 
+    una vez el depositario haya confirmado explícitamente que está satisfecho con 
+    los comprobantes de realización
+
+
+    probablemente los comprobantes serán en archivos .md
+
+
+---
+- las asociaciones tienen un monto máximo de $5000 desde la versión alpha
