@@ -150,8 +150,8 @@ Learn more about the power of Turborepo:
 │   └── typescript-config/
 └── turbo.json        ← Sin referencia)
 
-[Lucide Icons](https://lucide.dev/)
-[PixiJS](https://pixijs.com/)
+- [Lucide Icons](https://lucide.dev/)
+- [PixiJS](https://pixijs.com/)
 
 ## Comandos clave
 **Raíz**
