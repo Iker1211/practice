@@ -148,7 +148,10 @@ Learn more about the power of Turborepo:
 │   ├── lib/          ← Lógica compartida (Supabase, etc)
 │   ├── eslint-config/
 │   └── typescript-config/
-└── turbo.json        ← Sin referencias a mobile
+└── turbo.json        ← Sin referencia)
+
+[Lucide Icons](https://lucide.dev/)
+[PixiJS](https://pixijs.com/)
 
 ## Comandos clave
 **Raíz**
